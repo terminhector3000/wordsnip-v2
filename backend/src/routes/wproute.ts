@@ -1,5 +1,5 @@
 import express, { Request, Response, NextFunction } from 'express';
-import { processWordSnip } from '../controllers/wp_post';
+import { processWordSnip } from '../controllers/wpPost';
 
 const router = express.Router();
 
