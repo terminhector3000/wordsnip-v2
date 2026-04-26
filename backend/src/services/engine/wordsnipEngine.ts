@@ -1,5 +1,6 @@
 import { transformText } from '../Lib/transformText';
 import { removeStopWords } from '../Lib/removeStopWords';
+import { wordCounter } from '../Lib/wordCounter';
 
 type InputSnip = {
   source: string;
@@ -19,5 +20,6 @@ export const wordSnipEngine = (data: InputSnip) => {
     source,
     target,
   };
+  console.log(wordCounter(source));
   return payload;
 };

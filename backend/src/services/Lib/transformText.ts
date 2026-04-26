@@ -7,6 +7,7 @@ export const transformText = (txt: string): string => {
   const corpus: string = txt
     .toLowerCase()
     .replace(/[^a-z0-9-]+/g, ' ')
-    .trim();
+    .trim()
+    .replace(/-/g, '_');
   return corpus;
 };
