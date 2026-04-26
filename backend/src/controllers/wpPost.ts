@@ -18,7 +18,7 @@ export const processWordSnip = (
     }
 
     //if the data passes the schema validation deconstruct the values from the validation result
-    const { source, target, honeypot } = result.data;
+    const { honeypot } = result.data;
 
     //if there is a value for the "honeypot" hidden input field the data was probably created by a bot
     if (honeypot && honeypot.length > 0) {
@@ -27,7 +27,7 @@ export const processWordSnip = (
     }
 
     //if the validation succeeeds and the honeypot input field is empty, to call the wordsnip engin
-    const processedWordSnip = wordSnipEngine();
+    const processedWordSnip = wordSnipEngine(result.data);
     return res.status(201).json(processedWordSnip);
   } catch (err) {
     console.error(err);
