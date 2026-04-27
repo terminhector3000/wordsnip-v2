@@ -1,6 +1,7 @@
 import { transformText } from '../Lib/transformText';
 import { removeStopWords } from '../Lib/removeStopWords';
-import { wordCounter } from '../Lib/wordCounter';
+import { wordCounter, wordcounterType } from '../Lib/wordCounter';
+import { matchComparison } from '../Lib/matchComparison';
 
 type InputSnip = {
   source: string;
@@ -20,6 +21,12 @@ export const wordSnipEngine = (data: InputSnip) => {
     source,
     target,
   };
-  console.log(wordCounter(source));
-  return payload;
+  const sourceWordCount: wordcounterType = wordCounter(source);
+
+  //sort the target by count: only the target array because this is what we will loop through and used as a reference for comparison.
+  const targetWordCount: wordcounterType = Object.fromEntries(
+    Object.entries(wordCounter(target)).sort(([, a], [, b]) => b - a)
+  );
+
+  return matchComparison(sourceWordCount, targetWordCount);
 };
