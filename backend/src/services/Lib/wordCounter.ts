@@ -1,4 +1,4 @@
-type wordcounterType = Record<string, number>;
+export type wordcounterType = Record<string, number>;
 
 export const wordCounter = (obj: string[]): wordcounterType => {
   /**
@@ -11,7 +11,7 @@ export const wordCounter = (obj: string[]): wordcounterType => {
    */
   const wordCounter: wordcounterType = {};
 
-  for (let k = 0; k <= obj.length; k++) {
+  for (let k = 0; k <= obj.length - 1; k++) {
     const word: string = String(obj[k]);
     if (!Object.hasOwn(wordCounter, word)) {
       wordCounter[word] = 1;
