@@ -1,19 +1,20 @@
-import express, { Request, Response } from 'express';
+import app from './app';
 import { env } from './config/env';
-import bodyParser from 'body-parser';
-import wproutes from './routes/wproute';
-import contactroute from './routes/contactroute';
-
-const app = express();
-
 const PORT = env.PORT;
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-app.use('/postws', wproutes);
-app.use('/contact', contactroute);
-
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`);
+});
+
+process.on('SIGINT', () => {
+  console.log('SIGNIT received. Shutting down...');
+  server.close(() => {
+    process.exit(0);
+  });
+});
+process.on('SIGTERM', () => {
+  console.log('SIGTERM received. Shutting down...');
+  server.close(() => {
+    process.exit(0);
+  });
 });
