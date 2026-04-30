@@ -11,7 +11,8 @@
     "build": "tsc --w",
     "dev": "nodemon --ignore feedback.json index.js",
     "start": "tsc && ts-node ./dist/index.js",
-    "test": "jest"
+    "test": "jest --testPathPatterns=src/test/unit",
+    "test:e2e": "jest --testPathPatterns=src/test/integration"
   },
   "dependencies": {
     "dotenv": "^17.4.2",

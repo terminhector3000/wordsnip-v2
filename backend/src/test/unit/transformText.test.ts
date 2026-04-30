@@ -1,4 +1,4 @@
-import { transformText } from '../services/Lib/transformText';
+import { transformText } from '../../services/Lib/transformText';
 
 describe('transformText', () => {
   it('converts to lower case', () => {

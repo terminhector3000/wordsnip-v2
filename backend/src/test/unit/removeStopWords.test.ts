@@ -1,5 +1,5 @@
-import stopwords_list from '../services/Lib/data/stopwords';
-import { removeStopWords } from '../services/Lib/removeStopWords';
+import stopwords_list from '../../services/Lib/data/stopwords';
+import { removeStopWords } from '../../services/Lib/removeStopWords';
 
 describe('removeStopWords', () => {
   it('filters out stopwords and words with length < 3', () => {
