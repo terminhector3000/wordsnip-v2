@@ -1,4 +1,4 @@
-import { wordCounter, wordcounterType } from '../services/Lib/wordCounter';
+import { wordCounter } from '../../services/Lib/wordCounter';
 
 describe('wordCounter', () => {
   it('counts the number of times each word appears on the list', () => {

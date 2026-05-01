@@ -1,4 +1,4 @@
-import { matchComparison } from '../services/Lib/matchComparison';
+import { matchComparison } from '../../services/Lib/matchComparison';
 
 describe('matchComparison', () => {
   it('analyzes wether words from 2 inputs have the same or different counts', () => {
