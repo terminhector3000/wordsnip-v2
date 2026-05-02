@@ -5,6 +5,7 @@ export const createPostSchema = z.object({
   source: z
     .string()
     .min(10, 'Input must be at least 10 characters long')
+    .max(15000, 'You have reached the maximum text size')
     .transform((str) =>
       sanitizeHtml(str, {
         allowedTags: [],
@@ -14,6 +15,7 @@ export const createPostSchema = z.object({
   target: z
     .string()
     .min(10, 'Input must be at least 10 characters long')
+    .max(15000, 'You have reached the maximum text size')
     .transform((str) =>
       sanitizeHtml(str, {
         allowedTags: [],

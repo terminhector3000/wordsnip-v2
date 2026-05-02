@@ -6,6 +6,7 @@ dotenv.config();
 const envSchema = z.object({
   PORT: z.string().default('3000'),
   NODE_ENV: z.enum(['development', 'production']).default('development'),
+  // CORS_ORIGIN: z.string(),
 });
 
 const parsed = envSchema.safeParse(process.env);
