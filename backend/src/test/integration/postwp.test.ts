@@ -2,14 +2,7 @@ import request from 'supertest';
 import { type Express } from 'express';
 import app from '../../app';
 
-// { word: 'backend', counts: { source: 2, target: 2 }, match: true }
-
 describe('/postwp', () => {
-  //   let appTest: Express;
-  //   beforeAll(() => {
-  //     appTest = app;
-  //   });
-
   it('should return an array of objects containing the matchComparison schema', async () => {
     const response = await request(app)
       .post('/postws')
@@ -40,7 +33,7 @@ describe('/postwp', () => {
       .send({ source: 'The backend is on', honeypot: '' });
     expect(response.status).toBe(400);
     expect(response.body).toStrictEqual({
-      error: 'Invalid Data',
+      error: { target: ['Invalid input: expected string, received undefined'] },
     });
   });
 
@@ -49,6 +42,8 @@ describe('/postwp', () => {
       .post('/postws')
       .send({ source: 'The backend is on', target: '', honeypot: '' });
     expect(response.status).toBe(400);
-    expect(response.body).toStrictEqual({ error: 'Invalid Data' });
+    expect(response.body).toStrictEqual({
+      error: { target: ['Input must be at least 10 characters long'] },
+    });
   });
 });
