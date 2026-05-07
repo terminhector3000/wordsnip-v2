@@ -13,15 +13,15 @@ const app = express();
 app.use(helmet());
 
 //uncomment in production
-// app.use(
-//   cors({
-//     origin:
-//       env.NODE_ENV === 'production'
-//         ? env.CORS_ORIGIN.split(',')[0].trim()
-//         : env.CORS_ORIGIN.split(',')[1].trim(),
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin:
+      env.NODE_ENV === 'development'
+        ? env.CORS_ORIGIN.split(',')[0].trim()
+        : env.CORS_ORIGIN.split(',')[1].trim(),
+    credentials: true,
+  })
+);
 
 //log date, method, url, status, content-length, response time
 app.use(
