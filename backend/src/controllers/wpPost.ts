@@ -16,10 +16,14 @@ export const processWordSnip = (
     if (!result.success) {
       const tree = z.treeifyError(result.error);
       if (tree.properties?.source) {
-        return res.status(400).json({ error: { source: tree.properties?.source?.errors } });
+        return res
+          .status(400)
+          .json({ error: `source: ${String(tree.properties?.source?.errors)}` });
       }
       if (tree.properties?.target) {
-        return res.status(400).json({ error: { target: tree.properties?.target?.errors } });
+        return res
+          .status(400)
+          .json({ error: `target: ${String(tree.properties?.target?.errors)}` });
       }
       return res.status(400).json({ error: 'Invalid Data' });
     }
