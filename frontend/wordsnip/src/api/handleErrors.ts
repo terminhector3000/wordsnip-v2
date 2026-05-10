@@ -12,9 +12,6 @@ export const handleErrors = (err: unknown): ApiError => {
   if (axios.isAxiosError(err)) {
     const errorMessage = err as AxiosError<BackendError>;
     const errorCode: string = String(errorMessage.code);
-    for (const [k, v] of Object.entries(errorMessage)) {
-      console.log(k, ":", v);
-    }
     if (errorMessage.response) {
       if (errorMessage.code === "ERR_BAD_REQUEST") {
         if (typeof errorMessage.response.data.error === "string") {

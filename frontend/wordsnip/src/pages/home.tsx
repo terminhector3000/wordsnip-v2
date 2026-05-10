@@ -1,8 +1,19 @@
+import { useState } from "react";
+import type { SnipEngine } from "../types/WordsnipType";
 import WordsnipForm from "../components/worsnipForm";
+import RenderEngineResult from "../components/renderEngineResult";
+
 const Home = () => {
+  const [snipData, setSnipData] = useState<SnipEngine[]>();
+
+  const onSuccessfulSubmit = (data: SnipEngine[]) => {
+    setSnipData(data);
+  };
+
   return (
     <div>
-      <WordsnipForm />
+      <WordsnipForm onSuccessfulSubmit={onSuccessfulSubmit} />
+      {snipData ? <RenderEngineResult data={snipData} /> : "waiting for input"}
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { z } from "zod";
 import { wordsnipSchema } from "../schemas/mainFormSchema";
 import { createSnip } from "../api/wsengine";
 
-const WordsnipForm = () => {
+const WordsnipForm = ({ onSuccessfulSubmit }) => {
   const [source, setSource] = useState("");
   const [target, setTarget] = useState("");
   const [honeyPot, setHoneyPot] = useState("");
@@ -27,12 +27,13 @@ const WordsnipForm = () => {
       const tree = z.treeifyError(result.error);
       if (tree.properties?.source) {
         setInputError(String(tree.properties?.source?.errors));
+        return inputError;
       }
     }
 
     try {
       const res = await createSnip(result.data);
-      console.log(res);
+      onSuccessfulSubmit(res.data);
       setSource("");
       setTarget("");
     } catch (err) {
@@ -75,6 +76,7 @@ const WordsnipForm = () => {
         <div style={{ position: "absolute", left: -9999 }} aria-hidden="true">
           <label htmlFor="referer">Leave this field empty</label>
           <input
+            tabIndex={-1}
             type="text"
             name="referer"
             id="referer"
