@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import type { SnipEngine } from "../types/WordsnipType";
 import WordsnipForm from "../components/worsnipForm";
 import RenderEngineResult from "../components/renderEngineResult";
@@ -12,6 +13,7 @@ const Home = () => {
 
   return (
     <div>
+      <Link to="/contact">Contact</Link>
       <WordsnipForm onSuccessfulSubmit={onSuccessfulSubmit} />
       {snipData ? <RenderEngineResult data={snipData} /> : "waiting for input"}
     </div>
