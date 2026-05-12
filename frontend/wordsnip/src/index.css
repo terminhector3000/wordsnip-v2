@@ -1,0 +1,30 @@
+@import "tailwindcss";
+body {
+  background: #fff;
+}
+.nav {
+  background: #f8fafc;
+  height: 570px;
+  padding: 0;
+}
+/* .logo {
+  height: 36px–48px;
+  width: auto;
+} */
+
+/* @keyframes shift {
+  0% {
+    stop-color: #06b6d4;
+  }
+  50% {
+    stop-color: #4f46e5;
+  }
+  100% {
+    stop-color: #7c3aed;
+  }
+} */
+
+/* .logo:hover {
+  transform: scale(1.03);
+  transition: 200ms ease;
+} */
