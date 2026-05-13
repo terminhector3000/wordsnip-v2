@@ -48,7 +48,7 @@ const WordsnipForm = ({ onSuccessfulSubmit }) => {
       <form id="main-form" onSubmit={handleSubmit}>
         {inputError && <p>{inputError}</p>}
         <div>
-          <label htmlFor="sourceArea">Source</label>
+          <label htmlFor="sourceArea">Your Text</label>
           <textarea
             id="sourceArea"
             name="sourceArea"
@@ -60,7 +60,7 @@ const WordsnipForm = ({ onSuccessfulSubmit }) => {
           />
         </div>
         <div className="text-area-group">
-          <label htmlFor="targetArea">Target</label>
+          <label htmlFor="targetArea">Reference Text</label>
           <textarea
             id="targetArea"
             name="targetArea"
