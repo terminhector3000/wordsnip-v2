@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import type { SnipEngine } from "../types/WordsnipType";
 import WordsnipForm from "../components/worsnipForm";
 import RenderEngineResult from "../components/renderEngineResult";
