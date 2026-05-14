@@ -56,10 +56,13 @@ const RenderEngineResult = ({ data }) => {
     <div className="min-h-screen bg-slate-50 p-4 sm:p-6">
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
         {data.length > 0 ? (
-          <table className="min-w-175 w-full border-collapse text-sm">
+          <table
+            className="min-w-175 w-full border-collapse text-sm"
+            id="wordsnip-results"
+          >
             <thead className="bg-[#009879] text-[#ffffff]">
               <tr>
-                <th className="px-4 py-3 text-left font-bold ">Word</th>
+                <th className="px-4 py-3 text-left font-bold ">Words</th>
                 <th
                   onClick={() => handleSort("source")}
                   className="px-4 py-3 text-left font-bold cursor-pointer hover:bg-[#57CFAD] hover:text-[#333]"
