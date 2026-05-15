@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { SnipEngine } from "../types/WordsnipType";
 import WsInstructions from "../components/wsInstructions";
-import WordsnipForm from "../components/worsnipForm";
+import WordsnipForm from "../components/wordsnipForm";
 import RenderEngineResult from "../components/renderEngineResult";
 
 const Home = () => {
