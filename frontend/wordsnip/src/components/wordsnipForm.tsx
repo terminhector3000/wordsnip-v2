@@ -27,26 +27,27 @@ const WordsnipForm = ({ onSuccessfulSubmit }) => {
       const tree = z.treeifyError(result.error);
       if (tree.properties?.source) {
         setInputError(String(tree.properties?.source?.errors));
+        onSuccessfulSubmit(null, String(tree.properties?.source?.errors));
         return inputError;
       }
     }
 
-    try {
-      const res = await createSnip(result.data);
-      onSuccessfulSubmit(res.data);
-      // setSource("");
-      // setTarget("");
+    const res = await createSnip(result.data);
+
+    if (Array.isArray(res.data)) {
+      onSuccessfulSubmit(res.data, "");
       requestAnimationFrame(() => {
         document.getElementById("wordsnip-results")?.scrollIntoView({
           behavior: "smooth",
           block: "start",
         });
       });
-    } catch (err) {
-      setInputError(err);
-    } finally {
-      setLoading(false);
+    } else {
+      onSuccessfulSubmit(null, res.error.message);
+      setInputError(res.error.message);
     }
+
+    setLoading(false);
   };
 
   return (
@@ -56,7 +57,6 @@ const WordsnipForm = ({ onSuccessfulSubmit }) => {
         onSubmit={handleSubmit}
         className="max-w-8xl mx-auto p-6"
       >
-        {inputError && <p>{inputError}</p>}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
           <div className="flex flex-col gap-2">
             <label
@@ -144,6 +144,7 @@ const WordsnipForm = ({ onSuccessfulSubmit }) => {
             />
           </div>
         </div>
+
         <div className="mt-6 flex justify-center">
           <button
             disabled={loading}
