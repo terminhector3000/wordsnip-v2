@@ -1,4 +1,4 @@
-const ErrorMessage = ({ requestError }) => {
+const ErrorMessage = ({ requestError }: { requestError: string }) => {
   return (
     <div
       className="

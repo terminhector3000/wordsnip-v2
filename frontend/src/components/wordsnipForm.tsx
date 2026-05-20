@@ -1,19 +1,18 @@
 import { useState } from "react";
+import type { OnSubmitSuccess, Snip } from "../types/wordsnipType";
 import { z } from "zod";
 import { wordsnipSchema } from "../schemas/mainFormSchema";
 import { createSnip } from "../api/wsengine";
 
-const WordsnipForm = ({ onSuccessfulSubmit }) => {
-  const [source, setSource] = useState("");
-  const [target, setTarget] = useState("");
-  const [honeyPot, setHoneyPot] = useState("");
-  const [inputError, setInputError] = useState("");
-  const [loading, setLoading] = useState(false);
+const WordsnipForm = ({ onSuccessfulSubmit }: OnSubmitSuccess) => {
+  const [source, setSource] = useState<string>("");
+  const [target, setTarget] = useState<string>("");
+  const [honeyPot, setHoneyPot] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (honeyPot.trim() !== "") {
-      setInputError("Invalid data");
       return;
     }
 
@@ -23,30 +22,29 @@ const WordsnipForm = ({ onSuccessfulSubmit }) => {
       honeypot: honeyPot,
     });
 
-    if (!result.success) {
+    if (!result.success || !result.data) {
       const tree = z.treeifyError(result.error);
       if (tree.properties?.source) {
-        setInputError(String(tree.properties?.source?.errors));
-        onSuccessfulSubmit(null, String(tree.properties?.source?.errors));
-        return inputError;
+        onSuccessfulSubmit(String(tree.properties?.source?.errors));
+        return;
+      }
+    } else {
+      const payload: Snip = result.data;
+      const res = await createSnip(payload);
+
+      if (res.success) {
+        onSuccessfulSubmit(res.data);
+        requestAnimationFrame(() => {
+          document.getElementById("wordsnip-results")?.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        });
+      }
+      if (res.success === false) {
+        onSuccessfulSubmit(res.error);
       }
     }
-
-    const res = await createSnip(result.data);
-
-    if (Array.isArray(res.data)) {
-      onSuccessfulSubmit(res.data, "");
-      requestAnimationFrame(() => {
-        document.getElementById("wordsnip-results")?.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-        });
-      });
-    } else {
-      onSuccessfulSubmit(null, res.error.message);
-      setInputError(res.error.message);
-    }
-
     setLoading(false);
   };
 

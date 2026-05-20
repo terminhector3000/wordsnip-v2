@@ -2,7 +2,6 @@ import axios, { AxiosError } from "axios";
 
 type ApiError = {
   message: string;
-  code?: string;
 };
 type BackendError = {
   error: string;
@@ -11,20 +10,17 @@ type BackendError = {
 export const handleErrors = (err: unknown): ApiError => {
   if (axios.isAxiosError(err)) {
     const errorMessage = err as AxiosError<BackendError>;
-    const errorCode: string = String(errorMessage.code);
     if (errorMessage.response) {
       if (errorMessage.code === "ERR_BAD_REQUEST") {
         if (typeof errorMessage.response.data.error === "string") {
           return {
-            message: errorMessage.response.data.error,
-            code: errorCode,
+            message: String(errorMessage.response.data.error),
           };
         }
       }
 
       return {
-        message: errorMessage.message || "Server Error",
-        code: errorCode,
+        message: String(errorMessage.message) || "Server Error",
       };
     }
 
@@ -32,16 +28,15 @@ export const handleErrors = (err: unknown): ApiError => {
       if (errorMessage.code === "ERR_NETWORK") {
         return {
           message: "Unable to connect. Please try again",
-          code: "ERR_NETWORK",
         };
       }
       return {
-        message: errorMessage.message || "Server Temporarily out of Service",
-        code: errorCode,
+        message:
+          String(errorMessage.message) || "Server Temporarily out of Service",
       };
     }
 
-    return { message: errorMessage.message, code: errorCode };
+    return { message: String(errorMessage.message) };
   }
 
   return { message: "Unexpected Error" };
