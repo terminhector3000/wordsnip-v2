@@ -1,0 +1,20 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    restart: always
+    env_file:
+      - ./backend/.env
+
+    ports: ["3000:3000"]
+    environment: [NODE_ENV=production]
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: frontend
+    restart: always
+    ports: ["4173:4173"]
+    depends_on:
+      - backend

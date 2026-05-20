@@ -8,9 +8,8 @@
   "type": "commonjs",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "tsc --w",
     "dev": "nodemon --ignore feedback.json index.js",
-    "start": "tsc && ts-node ./dist/index.js",
+    "build": "tsc",
     "test": "jest --testPathPatterns=src/test/unit",
     "test:e2e": "jest --testPathPatterns=src/test/integration"
   },

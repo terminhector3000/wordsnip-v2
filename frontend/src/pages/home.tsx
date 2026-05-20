@@ -1,17 +1,20 @@
 import { useState } from "react";
-import type { SnipEngine } from "../types/WordsnipType";
+import type { SnipEngine } from "../types/wordsnipType";
 import WsInstructions from "../components/wsInstructions";
 import ErrorMessage from "../components/errorMessage";
 import WordsnipForm from "../components/wordsnipForm";
 import RenderEngineResult from "../components/renderEngineResult";
 
 const Home = () => {
-  const [snipData, setSnipData] = useState<SnipEngine[]>();
+  const [snipData, setSnipData] = useState<SnipEngine[] | string>();
   const [requestError, setRequestError] = useState("");
 
-  const onSuccessfulSubmit = (data: SnipEngine[], err: string) => {
-    setSnipData(data);
-    setRequestError(err);
+  const onSuccessfulSubmit = (data: SnipEngine[] | string): void => {
+    if (typeof data !== "string") {
+      setSnipData(data);
+    } else {
+      setRequestError(data);
+    }
   };
 
   return (

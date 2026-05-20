@@ -1,5 +1,5 @@
 #lightweight version of node
-FROM node:20-alpine
+FROM node:20-alpine AS builder
 
 #create app dir
 WORKDIR /app 
@@ -8,16 +8,24 @@ WORKDIR /app
 COPY package*.json ./
 
 #install only production packages
-RUN npm ci --omit=dev
+RUN npm ci 
 
 #copy folder contents
 COPY . .
 
+RUN npm run build
+
 #set production envs
 ENV NODE_ENV=production
 
-#export port
-EXPOSE 3000
+FROM node:20-alpine
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci --only=production
+
+COPY --from=builder /app/dist ./dist
 
 #create non root user
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup
@@ -28,5 +36,8 @@ RUN chown -R appuser:appgroup /app
 #change user
 USER appuser
 
+#expose port
+EXPOSE 3000
+
 #start app
-CMD ["node", "server.js"]
+CMD ["node", "dist/index.js"]

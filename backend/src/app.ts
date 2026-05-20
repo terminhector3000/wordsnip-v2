@@ -16,7 +16,7 @@ app.use(helmet());
 app.use(
   cors({
     origin:
-      env.NODE_ENV === 'development'
+      env.NODE_ENV === 'production'
         ? env.CORS_ORIGIN.split(',')[0].trim()
         : env.CORS_ORIGIN.split(',')[1].trim(),
     credentials: true,

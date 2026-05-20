@@ -1,11 +1,13 @@
 import { useState } from "react";
+import type { NavLinkRenderProps } from "react-router-dom";
 import { NavLink } from "react-router-dom";
+
 import WordSnipLogo from "./wsLogo";
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const navLinkClass = ({ isActive }) =>
+  const navLinkClass = ({ isActive }: NavLinkRenderProps) =>
     `transition hover:text-blue-600 ${
       isActive ? "text-blue-600 font-semibold" : "text-[#1E2A44]-700"
     }`;

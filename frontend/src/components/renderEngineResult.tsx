@@ -1,15 +1,22 @@
+import type { SnipEngine } from "../types/wordsnipType";
 import { useState, useMemo } from "react";
 import { ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
 import ListItem from "./listItem";
 
-const RenderEngineResult = ({ data }) => {
-  const [sortConfig, setSortConfig] = useState({
-    key: null,
-    direction: "asc",
+type SortKey = "source" | "target" | "match";
+
+const RenderEngineResult = ({ data }: { data: SnipEngine[] }) => {
+  const [sortConfig, setSortConfig] = useState<{
+    key: SortKey;
+    direction: "asc" | "desc";
+  }>({
+    key: "target",
+    direction: "desc",
   });
 
   const sortedData = useMemo(() => {
     const sortable = [...data];
+
     if (sortConfig.key) {
       sortable.sort((a, b) => {
         if (sortConfig.key === "source" || sortConfig.key === "target") {
@@ -30,16 +37,17 @@ const RenderEngineResult = ({ data }) => {
 
         return 0;
       });
+    } else {
+      return [];
     }
     return sortable;
   }, [sortConfig, data]);
 
-  const handleSort = (key: string) => {
-    setSortConfig((prev) => {
-      const direction =
-        prev.key === key && prev.direction === "asc" ? "desc" : "asc";
-      return { key, direction };
-    });
+  const handleSort = (key: SortKey) => {
+    setSortConfig((prev) => ({
+      key,
+      direction: prev.key === key && prev.direction === "asc" ? "desc" : "asc",
+    }));
   };
 
   const getArrow = (key: string) => {
@@ -100,7 +108,12 @@ const RenderEngineResult = ({ data }) => {
             </thead>
             <tbody className="text-[#333333]">
               {sortedData.map((row, idx) => (
-                <ListItem key={idx} row={row} />
+                <ListItem
+                  key={idx}
+                  word={row.word}
+                  counts={row.counts}
+                  match={row.match}
+                />
               ))}
             </tbody>
           </table>
