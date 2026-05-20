@@ -155,7 +155,7 @@ const WordsnipForm = ({ onSuccessfulSubmit }: OnSubmitSuccess) => {
         hover:bg-blue-700
       "
           >
-            {loading ? "Sending ..." : "Send"}
+            {loading ? "Sending ..." : "Compare Text"}
           </button>
         </div>
       </form>
