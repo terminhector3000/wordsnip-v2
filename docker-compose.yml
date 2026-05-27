@@ -15,6 +15,6 @@ services:
       context: ./frontend
     container_name: frontend
     restart: always
-    ports: ["4173:4173"]
+    ports: ["80:80"]
     depends_on:
       - backend

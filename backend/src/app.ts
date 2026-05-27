@@ -35,11 +35,28 @@ const limiter = rateLimit({
   max: 100,
 });
 
+console.log("routes loaded");
+app.use((req, res, next) => {
+  console.log(`[REQ] ${req.method} ${req.url}`);
+  next();
+});
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ limit: '200kb' }));
+app.get("/", (req, res) => {
+  console.log(req.method);
+  console.log(req.url);
+  console.log(req.headers);
 
+  res.send("OK");
+});
 app.use('/postws', limiter, wproutes);
-app.use('/contact', limiter, contactroute);
+app.use('/api/contact', limiter, contactroute);
+
+app.use((req, res, next) => {
+  console.log(`[REQ] ${req.method} ${req.url}`);
+  next();
+});
 
 app.use((req: Request, res: Response) => {
   res.status(404).json({ error: 'Not Found', path: req.originalUrl });

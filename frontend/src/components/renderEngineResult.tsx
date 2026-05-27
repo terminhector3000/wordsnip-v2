@@ -76,7 +76,7 @@ const RenderEngineResult = ({ data }: { data: SnipEngine[] }) => {
                   className="px-4 py-3 text-left font-bold cursor-pointer hover:bg-[#57CFAD] hover:text-[#333]"
                 >
                   <div className="flex items-center gap-1">
-                    <span className="font-medium">Source</span>{" "}
+                    <span className="font-medium">Your Text</span>{" "}
                     <div className="transition-colors group-hover:text-gray-600">
                       {getArrow("source")}
                     </div>
@@ -87,7 +87,7 @@ const RenderEngineResult = ({ data }: { data: SnipEngine[] }) => {
                   className="px-4 py-3 text-left font-bold cursor-pointer hover:bg-[#57CFAD] hover:text-[#333]"
                 >
                   <div className="flex items-center gap-1">
-                    <span className="font-medium">Target</span>
+                    <span className="font-medium">Reference Text</span>
                     <div className="transition-colors group-hover:text-gray-600">
                       {getArrow("target")}
                     </div>
