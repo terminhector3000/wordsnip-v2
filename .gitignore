@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+#cerbot certificates and renewal data
+certbot/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
