@@ -11,7 +11,8 @@ export const processWordSnip = (
   try {
     //use zod validation schema to check the input data fields
     const result = createPostSchema.safeParse(req.body);
-
+	
+    console.log("body of request", req.body);
     //if the schema fails return a json object with an error message
     if (!result.success) {
       const tree = z.treeifyError(result.error);
