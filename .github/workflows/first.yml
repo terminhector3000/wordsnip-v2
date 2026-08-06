@@ -1,0 +1,28 @@
+#name should describe what the workflow does
+name: first
+
+#list of github events that will trigger the workflow
+on: [push]
+
+#each workflow should have at least on job and each job should have a unique identifier starting with a letter or _
+#by default jobs run in parallel you can create dependencies so they riun sequentially
+
+jobs:
+    job1:
+        name: First Job
+        #github provides hosted compute resources to run our jobs these resources are called runners
+        runs-on: ubuntu-latest
+        #steps are tasks within jobs, they run as processes, steps run actions or commands.
+         steps:
+               - name: Step one
+                 uses: actions/checkout@v4
+               - name: Step two
+                 run: env | sort
+    job2:
+        name: Second Job
+        runs-on: ubuntu-latest
+        steps:
+               - name: Step one
+                 uses: actions/checkout@v4
+               - name: Step two
+                 run: env | sort
